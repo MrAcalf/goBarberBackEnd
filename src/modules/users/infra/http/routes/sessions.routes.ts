@@ -4,12 +4,15 @@ import AuthenticateUserService from '@modules/users/services/AuthenticateUserSer
 
 const sessionsRouter = Router()
 
+import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository'
+
 
 sessionsRouter.post('/', async (request, response) => {
 
     const { email, password } = request.body
 
-    const authenticateUser = new AuthenticateUserService()
+    const usersRepository = new UsersRepository()
+    const authenticateUser = new AuthenticateUserService(usersRepository)
 
     const { user, token } = await authenticateUser.execute({
         email,
