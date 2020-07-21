@@ -1,7 +1,6 @@
-import { compare } from 'bcryptjs'
+import { injectable, inject } from 'tsyringe'
 import { sign } from 'jsonwebtoken'
 import authConfig from '@config/auth'
-import { injectable, inject } from 'tsyringe'
 import IHashProvider from '../providers/HashProvider/models/IHashProvider'
 
 import AppError from '@shared/errors/AppError'
@@ -24,8 +23,7 @@ export default class AuthenticateUserService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
-
-        @inject('IHashProvider')
+        @inject('HashProvider')
         private hashProvider: IHashProvider
     ) {}
 
