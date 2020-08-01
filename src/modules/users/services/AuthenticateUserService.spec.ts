@@ -15,11 +15,6 @@ describe('AuthenticateUser', () => {
 
         fakeHashProvider = new FakeHashProvider()
 
-        createUser = new CreateUserService(
-            fakeUsersRepository,
-            fakeHashProvider
-        )
-
         authenticateUser = new AuthenticateUserService(
             fakeUsersRepository,
             fakeHashProvider
@@ -31,7 +26,7 @@ describe('AuthenticateUser', () => {
             fakeHashProvider
         )
 
-        const user = await createUser.execute({
+        const user = await fakeUsersRepository.create({
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: '123456'
@@ -54,7 +49,7 @@ describe('AuthenticateUser', () => {
     })
 
     it('shoud not be able to authenticate with wrong password', async () => {
-        await createUser.execute({
+        await fakeUsersRepository.create({
             name: 'John Doe',
             email: 'johndoe@example.com',
             password: '123456'
